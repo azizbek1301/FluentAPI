@@ -1,4 +1,5 @@
 ﻿using Fluent_API.DataAcsess;
+using Fluent_API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +19,23 @@ namespace Fluent_API.Controllers
         [HttpGet]
         public async ValueTask<IActionResult> GetNimadur()
         {
-            var result = await _context.Persons
-                .Include(x=>x.Cars)
-                .ToListAsync();
-            return Ok(result);
+            //    var result = await _context.Cars
+            //        .Include(x => x.Person)
+            //        .ThenInclude(x => x.Cars)
+            //        .ToListAsync();
+            //.FirstOrDefaultAsync(x => x.Name == "Ali");
+            return Ok(" ");
+        }
+
+
+        [HttpPost]
+        public async ValueTask<IActionResult> CreatePerson(string name)
+        {
+            Person person = new Person();
+            person.Name = name; 
+            await _context.Persons.AddAsync(person);
+            await _context.SaveChangesAsync();
+            return Ok("Lets Check");
         }
     }
 }

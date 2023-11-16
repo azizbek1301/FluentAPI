@@ -3,6 +3,7 @@ using Fluent_API.DataAcsess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fluent_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231116140026_Manytomany")]
+    partial class Manytomany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,14 +68,20 @@ namespace Fluent_API.Migrations
                     b.Property<int>("CarId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CarRustamId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonRustamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("CarRustamId");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonRustamId");
 
                     b.ToTable("PersonCars");
                 });
@@ -81,13 +90,13 @@ namespace Fluent_API.Migrations
                 {
                     b.HasOne("Fluent_API.Models.Car", "Cars")
                         .WithMany("CarPersons")
-                        .HasForeignKey("CarId")
+                        .HasForeignKey("CarRustamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Fluent_API.Models.Person", "Persons")
                         .WithMany("PersonCars")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("PersonRustamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

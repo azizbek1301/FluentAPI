@@ -11,5 +11,6 @@ namespace Fluent_API.DataAcsess
         }
         public virtual DbSet<Person>Persons { get; set; }
         public virtual DbSet<Car> Cars { get; set; }
+        public virtual DbSet<PersonCars> PersonCars { get; set; }
     }
 }
